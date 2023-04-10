@@ -21,8 +21,8 @@ export default class TransactionScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			bookId: 'BSC001',
-			studentId: 'STG06A12',
+			bookId: '',
+			studentId: '',
 			domState: 'normal',
 			hasCameraPermissions: null,
 			scanned: false,
@@ -102,18 +102,7 @@ export default class TransactionScreen extends Component {
 	getStudentDetails = async (studentId) => {
 		studentId = studentId.trim();
 
-		let dbQuery = query(
-			collection(db, 'students'),
-			where('student_id', '==', studentId)
-		);
-
-		let studentRef = await getDocs(dbQuery);
-
-		studentRef.forEach((doc) => {
-			this.setState({
-				studentName: doc.data().student_details.student_name,
-			});
-		});
+		r;
 	};
 
 	initiateBookIssue = () => {
