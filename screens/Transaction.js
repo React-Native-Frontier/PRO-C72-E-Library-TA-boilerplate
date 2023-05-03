@@ -63,7 +63,9 @@ export default class TransactionScreen extends Component {
 	};
 
 	handleTransaction = async () => {
-		var { bookId } = this.state;
+		var { bookId, studentId } = this.state;
+		await this.getBookDetails(bookId);
+		await this.getStudentDetails(studentId);
 
 		let dbQuery = query(
 			collection(db, 'books'),
@@ -101,8 +103,18 @@ export default class TransactionScreen extends Component {
 
 	getStudentDetails = async (studentId) => {
 		studentId = studentId.trim();
+		let dbQuery = query(
+			collection(db, 'students'),
+			where('student_id', '==', studentId)
+		);
 
-		r;
+		let studentRef = await getDocs(dbQuery);
+
+		studentRef.forEach((doc) => {
+			this.setState({
+				studentName: doc.data().student_details.student_name,
+			});
+		});
 	};
 
 	initiateBookIssue = () => {
